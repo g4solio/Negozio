@@ -23,7 +23,6 @@ public class Negoziazione {
         private NonAlimentare NonAlimentareLocale;
         ArrayList ListaNomiProdotti = new ArrayList();
         Array ListaProdotti = new Array(ListaNomiProdotti);
-            Scanner input = new Scanner(System.in);
 
      /**
      * @param args the command line arguments
@@ -69,6 +68,7 @@ public class Negoziazione {
         System.out.println(Lista.get(1));
         System.out.println(Lista.get(2));
         */
+        Scanner input = new Scanner(System.in);
         Negoziazione Negozio = new Negoziazione();
         Date adesso=new Date();
         Alimentare AlimentareLocale;
@@ -86,20 +86,27 @@ public class Negoziazione {
                 {
                     MemoryString = FileInput.readFile("Negozio.txt");
                     Negozio.inputDaFile(MemoryString);
+                    System.out.println("vuoi aggiungere elementi?(Y/n) ");
+                    if(input.nextLine().equalsIgnoreCase("Y"))
+                    {
+                        Negozio.allocazioneAlimenti();
+                    }
                     break;
                 }
                 else if(input.nextLine().equalsIgnoreCase("n"))
                 {
-                    
+                    Negozio.allocazioneAlimenti();
+                    break;
                 }
-                System.out.println(MemoryString);
-                break;
+                
             } 
             else 
             {
+                Negozio.allocazioneAlimenti();
                 break;
             }
         }
+        
     }
     // tipo codice descrizione prezzo altro nome
     //es. Alimentare 12B3123B1 10.5 102321093012 banana
@@ -125,14 +132,79 @@ public class Negoziazione {
                    
         }
     }
+    //nome codice AlimentareONo prezzo altro
     public void allocazioneAlimenti()
     {
+        Scanner input = new Scanner(System.in);
+
         String[] ArrayForConstruct = null;
-        System.out.println("Che alimento desidera inserire? ");
-        ArrayForConstruct[0]=input.nextLine();
-        System.out.println("Codice");
-        System.out.println("Alimentare o nonalimentare");
-        //input.nextLine().equalsIgnoreCase("alimentare") ? 
+        boolean succes= true;
+        while(!(ArrayForConstruct[0].equals("exit")))
+        {
+            if(succes==false)
+            {
+                System.out.println("La digitazione era sbagliata, ritenta");
+                succes=true;
+            }
+            System.out.println("Che alimento desidera inserire? exit per uscire ");
+            ArrayForConstruct[0]=input.nextLine();
+            System.out.println("Codice? ");
+            ArrayForConstruct[1]=input.nextLine();
+            System.out.println("Alimentare o nonalimentare? ");
+            ArrayForConstruct[2]=input.nextLine();
+            System.out.println("Costo per unita? ");
+            ArrayForConstruct[3]=input.nextLine();
+            if(ArrayForConstruct[2].equalsIgnoreCase("alimentare"))
+            {
+               System.out.println("inserire data di scadenza");
+               ArrayForConstruct[4]=input.nextLine();
+               adesso.setTime(Long.parseLong(ArrayForConstruct[4]));
+            }////////////////////////////////////////////////////////////////FIXXXXX//////////////////////////////////////////////
+            else if (ArrayForConstruct[2].equalsIgnoreCase("nonalimentare"))
+            {
+                System.out.println("Inserire materiale");
+                ArrayForConstruct[4]=input.nextLine();
+
+            }
+            else
+            {
+                  System.out.println("non capisco cosa "+ArrayForConstruct[2]+ " voglia dire");
+                  succes=false;
+            }
+
+
+            System.out.println("Descrizione: ");
+            ArrayForConstruct[5]=input.nextLine();
+
+            if(ArrayForConstruct[2].equalsIgnoreCase("alimentare")&&succes==true) 
+            {
+                try
+                {
+                    //public Alimentare(String Codice,String Descrizione, float Prezzo, Date data)
+                    AlimentareLocale = new Alimentare(ArrayForConstruct[1],ArrayForConstruct[5],Float.parseFloat(ArrayForConstruct[3]),adesso);
+                    ListaProdotti.add(AlimentareLocale, ArrayForConstruct[0]);
+
+                }
+                catch(Exception ex)
+                {
+                    succes=false;
+                }
+            }
+            else if(succes==true)
+            {
+                try
+                {
+                    //public NonAlimentare(String Codice, String Descrizione, float Prezzo, String Materiale) {
+                    NonAlimentareLocale = new NonAlimentare(ArrayForConstruct[1],ArrayForConstruct[5],Float.parseFloat(ArrayForConstruct[3]),ArrayForConstruct[4]);
+                    ListaProdotti.add(NonAlimentareLocale, ArrayForConstruct[0]);
+
+                }
+                catch(Exception ex)
+                {
+                    succes=false;
+                }
+            }
+        }
     }
 }
     
