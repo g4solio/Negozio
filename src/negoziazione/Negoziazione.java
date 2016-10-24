@@ -23,8 +23,11 @@ public class Negoziazione {
         private NonAlimentare NonAlimentareLocale;
         ArrayList ListaNomiProdotti = new ArrayList();
         Array ListaProdotti = new Array(ListaNomiProdotti);
-    /**
+            Scanner input = new Scanner(System.in);
+
+     /**
      * @param args the command line arguments
+     * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         /*
@@ -66,11 +69,11 @@ public class Negoziazione {
         System.out.println(Lista.get(1));
         System.out.println(Lista.get(2));
         */
+        Negoziazione Negozio = new Negoziazione();
         Date adesso=new Date();
         Alimentare AlimentareLocale;
         NonAlimentare NonAlimentare;
         File Memory = new File("Negozio.txt");
-        Scanner input = new Scanner(System.in);
         ReadFile FileInput = new ReadFile();
         String MemoryString = "";
         while(true)
@@ -82,6 +85,11 @@ public class Negoziazione {
                 if(input.nextLine().equalsIgnoreCase("y"))
                 {
                     MemoryString = FileInput.readFile("Negozio.txt");
+                    Negozio.inputDaFile(MemoryString);
+                    break;
+                }
+                else if(input.nextLine().equalsIgnoreCase("n"))
+                {
                     
                 }
                 System.out.println(MemoryString);
@@ -116,6 +124,15 @@ public class Negoziazione {
             }
                    
         }
+    }
+    public void allocazioneAlimenti()
+    {
+        String[] ArrayForConstruct = null;
+        System.out.println("Che alimento desidera inserire? ");
+        ArrayForConstruct[0]=input.nextLine();
+        System.out.println("Codice");
+        System.out.println("Alimentare o nonalimentare");
+        //input.nextLine().equalsIgnoreCase("alimentare") ? 
     }
 }
     
