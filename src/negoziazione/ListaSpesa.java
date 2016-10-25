@@ -13,6 +13,35 @@ import java.util.ArrayList;
  */
 public class ListaSpesa 
 {
-    ArrayList ListaNomi = new ArrayList();
-    Array Lista = new Array(ListaNomi);
+    /*ArrayList Nomi;
+    ArrayList Volte; 
+    ArrayV3 Lista;
+    
+    public ListaSpesa() {
+        Nomi = new ArrayList();
+        Volte = new ArrayList();
+        Lista = new ArrayV3(Nomi,Volte);
+    }*/
+    ArrayList Volte;
+    Array Lista;
+    boolean carta;
+    public ListaSpesa(boolean carta)
+    {
+        Volte=new ArrayList();
+        Lista = new Array(Volte);
+        this.carta=carta;
+    }
+    public void add(String Nome, Integer quantita)
+    {
+        Lista.add(Nome, quantita);
+    }
+    public int getVolte (int i)
+    {
+        return (int) Lista.get(i);
+    }
+        public Object getNome (int i)
+    {
+        return  Lista.get(i);
+    }
+    
 }

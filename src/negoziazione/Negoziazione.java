@@ -23,6 +23,8 @@ public class Negoziazione {
         private NonAlimentare NonAlimentareLocale;
         ArrayList ListaNomiProdotti = new ArrayList();
         Array ListaProdotti = new Array(ListaNomiProdotti);
+        ListaSpesa ListaSpesa ;
+
 
      /**
      * @param args the command line arguments
@@ -106,8 +108,10 @@ public class Negoziazione {
                 break;
             }
         }
-        
-    }
+        Negozio.IniziallizzaSpesa();
+
+       
+}
     // tipo codice descrizione prezzo altro nome
     //es. Alimentare 12B3123B1 10.5 102321093012 banana
     //es. NonAlimentare 2131313YH1 10.7 Metallo coltello
@@ -131,6 +135,7 @@ public class Negoziazione {
             }
                    
         }
+        
     }
     //nome codice AlimentareONo prezzo altro
     public void allocazioneAlimenti()
@@ -205,6 +210,62 @@ public class Negoziazione {
                 }
             }
         }
+    }
+    public void IniziallizzaSpesa()
+    {
+        boolean PossessoCarta = false;
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("hai la carta? (Y/n)");
+        if(input.nextLine().equalsIgnoreCase("Y")){
+            PossessoCarta = true;
+        } 
+        else
+        {
+            PossessoCarta = false;
+        }
+        ListaSpesa = new ListaSpesa(PossessoCarta);
+        String[] ArrayForConstruct = null;
+        boolean succes= true;
+        while(!(ArrayForConstruct[0].equals("exit")))
+        {
+            if(succes==false)
+            {
+                System.out.println("input non riuscito");
+                succes=true;
+            }
+            System.out.println("Inserire Prootto da comprare: exit per uscire");
+            ArrayForConstruct[0]=input.nextLine();
+            System.out.append("inserire quantita: ");
+            ArrayForConstruct[1]=input.nextLine();
+            if(ListaNomiProdotti.contains(ArrayForConstruct[0]))
+            {
+                try
+                {
+                    ListaSpesa.add(ArrayForConstruct[0],Integer.parseInt(ArrayForConstruct[1]));
+                }
+                catch(Exception ex)
+                {
+                    succes=false;
+                }
+            }
+            else
+            {
+                succes=false;
+            }
+        }   
+    }
+
+    public float CostoTotale ()
+    {   float totale=0;
+        for(int i=0;i<ListaSpesa.Volte.size();i++)
+        {
+            if(ListaNomiProdotti.contains(ListaSpesa.getNome(i)))
+            {
+                totale+=ListaProdotti.getObject(ListaNomiProdotti.indexOf(ListaSpesa.getNome(i))).getPrezzoUnitario();
+            }
+        }
+        return totale;
     }
 }
     

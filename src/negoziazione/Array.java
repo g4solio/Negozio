@@ -11,7 +11,8 @@ import java.util.ArrayList;
  *
  * @author g4solio
  */
-public class Array extends ArrayList {
+public class Array extends ArrayList 
+{
     ArrayList derivato;
     
     public Array(ArrayList a)
@@ -25,15 +26,21 @@ public class Array extends ArrayList {
          super.add(pos,a);
         derivato.add(pos,nome);
      }    
-     public void add(Object a, String nome)
+    public void add(Object a, String nome)
      {
          super.add(a);
         derivato.add(nome);
      }
-     public Object get(int i)
+    void add(String Nome, Integer quantita) {
+        super.add(Nome);
+        derivato.add(quantita);
+    }
+     public String get(int i)
      {
          return derivato.get(i);
      }
-
-    
+     public Object getObject(int i)
+     {
+         return super.get(i);
+     }
 }
