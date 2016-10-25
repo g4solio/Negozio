@@ -31,11 +31,12 @@ public class Array extends ArrayList
          super.add(a);
         derivato.add(nome);
      }
-    void add(String Nome, Integer quantita) {
+    void add(String Nome, Integer quantita) 
+    {
         super.add(Nome);
         derivato.add(quantita);
     }
-     public String get(int i)
+     public Object get(int i)
      {
          return derivato.get(i);
      }

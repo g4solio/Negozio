@@ -18,12 +18,12 @@ import java.util.Scanner;
  * @author davide
  */
 public class Negoziazione {
-        private final Date adesso=new Date();
-        private Alimentare AlimentareLocale;
-        private NonAlimentare NonAlimentareLocale;
-        ArrayList ListaNomiProdotti = new ArrayList();
-        Array ListaProdotti = new Array(ListaNomiProdotti);
-        ListaSpesa ListaSpesa ;
+       public Date adesso;
+       public Alimentare AlimentareLocale;
+       public NonAlimentare NonAlimentareLocale;
+       public ArrayList ListaNomiProdotti = new ArrayList();
+       public Array ListaProdotti = new Array(ListaNomiProdotti);
+       public ListaSpesa ListaSpesa ;
 
 
      /**
@@ -73,8 +73,7 @@ public class Negoziazione {
         Scanner input = new Scanner(System.in);
         Negoziazione Negozio = new Negoziazione();
         Date adesso=new Date();
-        Alimentare AlimentareLocale;
-        NonAlimentare NonAlimentare;
+
         File Memory = new File("Negozio.txt");
         ReadFile FileInput = new ReadFile();
         String MemoryString = "";
@@ -109,9 +108,13 @@ public class Negoziazione {
             }
         }
         Negozio.IniziallizzaSpesa();
-
+        float totale = Negozio.CostoTotale();
        
 }
+
+    public Negoziazione() {
+        this.adesso = new Date();
+    }
     // tipo codice descrizione prezzo altro nome
     //es. Alimentare 12B3123B1 10.5 102321093012 banana
     //es. NonAlimentare 2131313YH1 10.7 Metallo coltello
@@ -142,9 +145,10 @@ public class Negoziazione {
     {
         Scanner input = new Scanner(System.in);
 
-        String[] ArrayForConstruct = null;
+        String[] ArrayForConstruct = new String[120];
         boolean succes= true;
-        while(!(ArrayForConstruct[0].equals("exit")))
+        ArrayForConstruct[0]="new";
+        while((ArrayForConstruct[0].equals("exit"))!=true)
         {
             if(succes==false)
             {
@@ -153,6 +157,10 @@ public class Negoziazione {
             }
             System.out.println("Che alimento desidera inserire? exit per uscire ");
             ArrayForConstruct[0]=input.nextLine();
+            if(ArrayForConstruct[0].equals("exit"))
+            {
+                break;
+            }
             System.out.println("Codice? ");
             ArrayForConstruct[1]=input.nextLine();
             System.out.println("Alimentare o nonalimentare? ");
@@ -225,9 +233,9 @@ public class Negoziazione {
             PossessoCarta = false;
         }
         ListaSpesa = new ListaSpesa(PossessoCarta);
-        String[] ArrayForConstruct = null;
+        String[] ArrayForConstruct = new String[120];
         boolean succes= true;
-        while(!(ArrayForConstruct[0].equals("exit")))
+        while(true)
         {
             if(succes==false)
             {
@@ -236,6 +244,10 @@ public class Negoziazione {
             }
             System.out.println("Inserire Prootto da comprare: exit per uscire");
             ArrayForConstruct[0]=input.nextLine();
+            if(ArrayForConstruct[0].equals("exit"))
+            {
+                break;
+            }
             System.out.append("inserire quantita: ");
             ArrayForConstruct[1]=input.nextLine();
             if(ListaNomiProdotti.contains(ArrayForConstruct[0]))
@@ -252,6 +264,7 @@ public class Negoziazione {
             else
             {
                 succes=false;
+               
             }
         }   
     }
@@ -260,9 +273,11 @@ public class Negoziazione {
     {   float totale=0;
         for(int i=0;i<ListaSpesa.Volte.size();i++)
         {
+            System.out.println("dentro");
             if(ListaNomiProdotti.contains(ListaSpesa.getNome(i)))
             {
-                totale+=ListaProdotti.getObject(ListaNomiProdotti.indexOf(ListaSpesa.getNome(i))).getPrezzoUnitario();
+               // totale+=ListaProdotti.getObject(ListaNomiProdotti.indexOf(ListaSpesa.getNome(i)));
+                System.out.println(ListaProdotti.getObject(ListaNomiProdotti.indexOf(ListaSpesa.getNome(i))));
             }
         }
         return totale;
