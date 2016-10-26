@@ -128,13 +128,11 @@ public class Negoziazione {
             {
                 adesso.setTime(Long.parseLong(MemorySplitted[i+4]));
                 
-                AlimentareLocale = new Alimentare(MemorySplitted[i+1],MemorySplitted[i+2],Float.valueOf(MemorySplitted[i+3]),adesso);
-                ListaProdotti.add(AlimentareLocale, MemorySplitted[i+5]);
+                ListaProdotti.add(new Alimentare(MemorySplitted[i+1],MemorySplitted[i+2],Float.valueOf(MemorySplitted[i+3]),adesso), MemorySplitted[i+5]);
             }
             else if(MemorySplitted[i].equalsIgnoreCase("nonalimentare"))
             {
-                NonAlimentareLocale = new NonAlimentare(MemorySplitted[i+1],MemorySplitted[i+2],Float.valueOf(MemorySplitted[i+3]),MemorySplitted[i+4]);
-                ListaProdotti.add(NonAlimentareLocale, MemorySplitted[i+5]);
+                ListaProdotti.add(new NonAlimentare(MemorySplitted[i+1],MemorySplitted[i+2],Float.valueOf(MemorySplitted[i+3]),MemorySplitted[i+4]), MemorySplitted[i+5]);
             }
                    
         }
@@ -194,8 +192,7 @@ public class Negoziazione {
                 try
                 {
                     //public Alimentare(String Codice,String Descrizione, float Prezzo, Date data)
-                    AlimentareLocale = new Alimentare(ArrayForConstruct[1],ArrayForConstruct[5],Float.parseFloat(ArrayForConstruct[3]),adesso);
-                    ListaProdotti.add(AlimentareLocale, ArrayForConstruct[0]);
+                    ListaProdotti.add(new Alimentare(ArrayForConstruct[1],ArrayForConstruct[5],Float.parseFloat(ArrayForConstruct[3]),adesso), ArrayForConstruct[0]);
 
                 }
                 catch(Exception ex)
@@ -208,8 +205,7 @@ public class Negoziazione {
                 try
                 {
                     //public NonAlimentare(String Codice, String Descrizione, float Prezzo, String Materiale) {
-                    NonAlimentareLocale = new NonAlimentare(ArrayForConstruct[1],ArrayForConstruct[5],Float.parseFloat(ArrayForConstruct[3]),ArrayForConstruct[4]);
-                    ListaProdotti.add(NonAlimentareLocale, ArrayForConstruct[0]);
+                    ListaProdotti.add(new NonAlimentare(ArrayForConstruct[1],ArrayForConstruct[5],Float.parseFloat(ArrayForConstruct[3]),ArrayForConstruct[4]), ArrayForConstruct[0]);
 
                 }
                 catch(Exception ex)
